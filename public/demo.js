@@ -1023,8 +1023,149 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _UsersTable__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./UsersTable */ "./resources/js/views/User/UsersTable.vue");
-/* harmony import */ var _components_Modal__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @/components/Modal */ "./resources/js/components/Modal.vue");
+/* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/regenerator */ "./node_modules/@babel/runtime/regenerator/index.js");
+/* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _UsersTable__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./UsersTable */ "./resources/js/views/User/UsersTable.vue");
+/* harmony import */ var _components_Modal__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @/components/Modal */ "./resources/js/components/Modal.vue");
+
+
+function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
+
+function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
+
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 //
 //
 //
@@ -1048,8 +1189,116 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "tables",
   components: {
-    UsersTable: _UsersTable__WEBPACK_IMPORTED_MODULE_0__["default"],
-    modal: _components_Modal__WEBPACK_IMPORTED_MODULE_1__["default"]
+    UsersTable: _UsersTable__WEBPACK_IMPORTED_MODULE_1__["default"],
+    modal: _components_Modal__WEBPACK_IMPORTED_MODULE_2__["default"]
+  },
+  mounted: function mounted() {},
+  data: function data() {
+    return {
+      modal: {
+        show: true,
+        buscar: 0
+      },
+      operacion: {
+        nombre: "Nuevo Usuario",
+        valor: 1
+      },
+      usuario: {
+        nombre: "",
+        cedula: "",
+        telefono: "",
+        email: "",
+        rol: "",
+        user: "",
+        password: ""
+      }
+    };
+  },
+  methods: {
+    validar: function validar() {
+      if (this.usuario) {
+        return true;
+      }
+    },
+    procesar: function procesar() {
+      var _this = this;
+
+      return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee() {
+        var res, err;
+        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee$(_context) {
+          while (1) {
+            switch (_context.prev = _context.next) {
+              case 0:
+                if (!_this.validar()) {
+                  _context.next = 9;
+                  break;
+                }
+
+                if (!(_this.operacion.valor == 1)) {
+                  _context.next = 8;
+                  break;
+                }
+
+                _context.next = 4;
+                return _this.callApi("post", "app/users", _this.usuario);
+
+              case 4:
+                res = _context.sent;
+
+                if (res.status == 201) {
+                  _this.modal.show = false;
+                  _this.modal.buscar = true;
+
+                  _this.$snotify.success("El usuario ha sido agregado correctamente", "Finalizado", {
+                    timeout: 3000,
+                    showProgressBar: true,
+                    closeOnClick: false,
+                    pauseOnHover: true
+                  });
+                } else {
+                  if (res.status == 403) {
+                    err = "";
+                    Object.keys(res.data).forEach(function (key, index) {
+                      err += res.data[key] + "<br>";
+                    });
+
+                    _this.$snotify.html("<div class=\"snotifyToast__title\"><b>Error</b></div>\n  <div class=\"snotifyToast__body\">".concat(err, "</div> "), {
+                      timeout: 10000,
+                      showProgressBar: true,
+                      closeOnClick: true,
+                      pauseOnHover: true,
+                      type: "error"
+                    });
+                  } else {
+                    _this.$snotify.html("<div class=\"snotifyToast__title\"><b>Error</b></div>\n  <div class=\"snotifyToast__body\">".concat(res.data, "</div> "), {
+                      timeout: 10000,
+                      showProgressBar: true,
+                      closeOnClick: true,
+                      pauseOnHover: true,
+                      type: "error"
+                    });
+                  }
+                }
+
+                _context.next = 9;
+                break;
+
+              case 8:
+                _this.$snotify.error("Por favor, complete todos los datos", "Error", {
+                  timeout: 2000,
+                  showProgressBar: true,
+                  closeOnClick: false,
+                  pauseOnHover: true
+                });
+
+              case 9:
+              case "end":
+                return _context.stop();
+            }
+          }
+        }, _callee);
+      }))();
+    }
   }
 });
 
@@ -1145,43 +1394,46 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
-//
-//
-//
-//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
+  props: ["buscar"],
   data: function data() {
     return {
       filtro: "",
-      tableData: [{
-        nombres: "Lucas Affonso",
-        apellidos: "Hoffmann",
-        telefono: "0983149332",
-        cedula: "4896565",
-        estado: "1"
-      }, {
-        nombres: "Ariel",
-        apellidos: "Genott",
-        telefono: "0983111222",
-        cedula: "54545454",
-        estado: "0"
-      }]
+      tableData: []
     };
   },
-  created: function created() {
+  watch: {
+    buscar: function buscar(val) {
+      var me = this;
+
+      if (val == 1) {
+        me.getUsuarios();
+      }
+    }
+  },
+  getUsuarios: function getUsuarios() {
     var _this = this;
 
     return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee() {
+      var res;
       return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee$(_context) {
         while (1) {
           switch (_context.prev = _context.next) {
             case 0:
               _context.next = 2;
-              return _this.callApi('get', 'app/users');
+              return _this.callApi("get", "app/users");
 
             case 2:
+              res = _context.sent;
+
+              if (res.status == 200) {
+                _this.tableData = res.data.users.data;
+                console.log(_this.tableData);
+              }
+
+            case 4:
             case "end":
               return _context.stop();
           }
@@ -1189,14 +1441,42 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       }, _callee);
     }))();
   },
+  mounted: function mounted() {
+    var _this2 = this;
+
+    return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee2() {
+      var res;
+      return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee2$(_context2) {
+        while (1) {
+          switch (_context2.prev = _context2.next) {
+            case 0:
+              _context2.next = 2;
+              return _this2.callApi("get", "app/users");
+
+            case 2:
+              res = _context2.sent;
+
+              if (res.status == 200) {
+                _this2.tableData = res.data.users.data;
+                console.log(_this2.tableData);
+              }
+
+            case 4:
+            case "end":
+              return _context2.stop();
+          }
+        }
+      }, _callee2);
+    }))();
+  },
   computed: {
     filteredTableData: function filteredTableData() {
-      var _this2 = this;
+      var _this3 = this;
 
       return this.tableData.filter(function (el) {
-        var nombres = el.nombres.toString().toLowerCase();
-        var apellidos = el.apellidos.toString().toLowerCase();
-        return nombres.includes(_this2.filtro) || apellidos.includes(_this2.filtro);
+        var nombres = el.nombre.toString().toLowerCase();
+        var apellidos = el.cedula.toString().toLowerCase();
+        return nombres.includes(_this3.filtro) || apellidos.includes(_this3.filtro);
       });
     }
   },
@@ -3475,6 +3755,8 @@ var render = function() {
       ),
       _vm._v(" "),
       _c("div", { staticClass: "container-fluid" }, [
+        _c("div", { staticClass: "col text-right" }),
+        _vm._v(" "),
         _c("div", { staticClass: "row" }, [
           _c(
             "div",
@@ -3483,13 +3765,300 @@ var render = function() {
               _c("users-table", [
                 _c("div", { attrs: { slot: "title" }, slot: "title" }, [
                   _vm._v("Usuarios")
+                ]),
+                _vm._v(" "),
+                _c("div", { attrs: { slot: "options" }, slot: "options" }, [
+                  _c("div", { staticClass: "col text-right" }, [
+                    _c(
+                      "a",
+                      {
+                        staticClass: "btn btn-sm btn-primary",
+                        attrs: { href: "#!" },
+                        on: {
+                          click: function($event) {
+                            _vm.modal.show = true
+                          }
+                        }
+                      },
+                      [
+                        _vm._v("Agregar "),
+                        _c("i", { staticClass: "fa fa-plus" })
+                      ]
+                    )
+                  ])
                 ])
               ])
             ],
             1
           )
         ])
-      ])
+      ]),
+      _vm._v(" "),
+      _c(
+        "modal",
+        {
+          attrs: {
+            show: _vm.modal.show,
+            buscar: _vm.modal.buscar,
+            "body-classes": "p-0",
+            "modal-classes": "modal-lg",
+            "footer-classes": "row justify-content-center"
+          },
+          on: {
+            "update:show": function($event) {
+              return _vm.$set(_vm.modal, "show", $event)
+            }
+          }
+        },
+        [
+          _c("div", { attrs: { slot: "header" }, slot: "header" }, [
+            _c("i", { staticClass: "fa fa-users" }),
+            _vm._v(" " + _vm._s(_vm.operacion.nombre) + "\n        ")
+          ]),
+          _vm._v(" "),
+          _c(
+            "card",
+            {
+              staticClass: "border-0",
+              attrs: {
+                type: "secondary",
+                shadow: "",
+                "header-classes": "bg-white    ",
+                "body-classes": " pt-lg-5"
+              }
+            },
+            [
+              [
+                _c("form", { attrs: { role: "form" } }, [
+                  _c("div", { staticClass: "row" }, [
+                    _c(
+                      "div",
+                      { staticClass: "col-md-8" },
+                      [
+                        _c("label", { attrs: { for: "" } }, [_vm._v("Nombre")]),
+                        _vm._v(" "),
+                        _c("base-input", {
+                          staticClass: "mb-3",
+                          attrs: { alternative: "", placeholder: "Nombre" },
+                          model: {
+                            value: _vm.usuario.nombre,
+                            callback: function($$v) {
+                              _vm.$set(_vm.usuario, "nombre", $$v)
+                            },
+                            expression: "usuario.nombre"
+                          }
+                        })
+                      ],
+                      1
+                    ),
+                    _vm._v(" "),
+                    _c(
+                      "div",
+                      { staticClass: "col-md-4" },
+                      [
+                        _c("label", { attrs: { for: "" } }, [_vm._v("Cedula")]),
+                        _vm._v(" "),
+                        _c("base-input", {
+                          staticClass: "mb-3",
+                          attrs: { alternative: "", placeholder: "Cedula" },
+                          model: {
+                            value: _vm.usuario.cedula,
+                            callback: function($$v) {
+                              _vm.$set(_vm.usuario, "cedula", $$v)
+                            },
+                            expression: "usuario.cedula"
+                          }
+                        })
+                      ],
+                      1
+                    ),
+                    _vm._v(" "),
+                    _c(
+                      "div",
+                      { staticClass: "col-md-4" },
+                      [
+                        _c("label", { attrs: { for: "" } }, [
+                          _vm._v("Telefono")
+                        ]),
+                        _vm._v(" "),
+                        _c("base-input", {
+                          staticClass: "mb-3",
+                          attrs: { alternative: "", placeholder: "Telefono" },
+                          model: {
+                            value: _vm.usuario.telefono,
+                            callback: function($$v) {
+                              _vm.$set(_vm.usuario, "telefono", $$v)
+                            },
+                            expression: "usuario.telefono"
+                          }
+                        })
+                      ],
+                      1
+                    ),
+                    _vm._v(" "),
+                    _c(
+                      "div",
+                      { staticClass: "col-md-4" },
+                      [
+                        _c("label", { attrs: { for: "" } }, [_vm._v("Email")]),
+                        _vm._v(" "),
+                        _c("base-input", {
+                          staticClass: "mb-3",
+                          attrs: { alternative: "", placeholder: "Email" },
+                          model: {
+                            value: _vm.usuario.email,
+                            callback: function($$v) {
+                              _vm.$set(_vm.usuario, "email", $$v)
+                            },
+                            expression: "usuario.email"
+                          }
+                        })
+                      ],
+                      1
+                    ),
+                    _vm._v(" "),
+                    _c("div", { staticClass: "col-md-4" }, [
+                      _c("label", { attrs: { for: "" } }, [_vm._v("Rol")]),
+                      _vm._v(" "),
+                      _c(
+                        "select",
+                        {
+                          directives: [
+                            {
+                              name: "model",
+                              rawName: "v-model",
+                              value: _vm.usuario.rol,
+                              expression: "usuario.rol"
+                            }
+                          ],
+                          staticClass: "form-control",
+                          on: {
+                            change: function($event) {
+                              var $$selectedVal = Array.prototype.filter
+                                .call($event.target.options, function(o) {
+                                  return o.selected
+                                })
+                                .map(function(o) {
+                                  var val = "_value" in o ? o._value : o.value
+                                  return val
+                                })
+                              _vm.$set(
+                                _vm.usuario,
+                                "rol",
+                                $event.target.multiple
+                                  ? $$selectedVal
+                                  : $$selectedVal[0]
+                              )
+                            }
+                          }
+                        },
+                        [
+                          _c("option", { attrs: { value: "1" } }, [
+                            _vm._v("Super Usuario")
+                          ]),
+                          _vm._v(" "),
+                          _c("option", { attrs: { value: "2" } }, [
+                            _vm._v("Admin")
+                          ]),
+                          _vm._v(" "),
+                          _c("option", { attrs: { value: "3" } }, [
+                            _vm._v("Operador")
+                          ])
+                        ]
+                      )
+                    ])
+                  ]),
+                  _vm._v(" "),
+                  _c("hr"),
+                  _vm._v(" "),
+                  _c("div", { staticClass: "row" }, [
+                    _c(
+                      "div",
+                      { staticClass: "col-md-6" },
+                      [
+                        _c("label", { attrs: { for: "" } }, [
+                          _vm._v("Usuario")
+                        ]),
+                        _vm._v(" "),
+                        _c("base-input", {
+                          staticClass: "mb-3",
+                          attrs: { alternative: "", placeholder: "Usuario" },
+                          model: {
+                            value: _vm.usuario.user,
+                            callback: function($$v) {
+                              _vm.$set(_vm.usuario, "user", $$v)
+                            },
+                            expression: "usuario.user"
+                          }
+                        })
+                      ],
+                      1
+                    ),
+                    _vm._v(" "),
+                    _c("br"),
+                    _vm._v(" "),
+                    _c(
+                      "div",
+                      { staticClass: "col-md-6" },
+                      [
+                        _c("label", { attrs: { for: "" } }, [
+                          _vm._v("Password")
+                        ]),
+                        _vm._v(" "),
+                        _c("base-input", {
+                          attrs: {
+                            alternative: "",
+                            type: "password",
+                            placeholder: "Password"
+                          },
+                          model: {
+                            value: _vm.usuario.password,
+                            callback: function($$v) {
+                              _vm.$set(_vm.usuario, "password", $$v)
+                            },
+                            expression: "usuario.password"
+                          }
+                        })
+                      ],
+                      1
+                    )
+                  ])
+                ])
+              ]
+            ],
+            2
+          ),
+          _vm._v(" "),
+          _c(
+            "div",
+            { attrs: { slot: "footer" }, slot: "footer" },
+            [
+              _c(
+                "base-button",
+                {
+                  attrs: { type: "success", icon: "fas fa-check-circle" },
+                  on: {
+                    click: function($event) {
+                      return _vm.procesar()
+                    }
+                  }
+                },
+                [_vm._v("Guardar")]
+              ),
+              _vm._v(" "),
+              _c(
+                "base-button",
+                { attrs: { type: "danger", icon: "fas fa-times" } },
+                [_vm._v("Cancelar")]
+              )
+            ],
+            1
+          )
+        ],
+        1
+      ),
+      _vm._v(" "),
+      _c("vue-snotify")
     ],
     1
   )
@@ -3518,13 +4087,18 @@ var render = function() {
   var _c = _vm._self._c || _h
   return _c("div", { staticClass: "card" }, [
     _c("div", { staticClass: "card-header border-0" }, [
-      _c("div", { staticClass: "row align-items-center" }, [
-        _c("div", { staticClass: "col" }, [
-          _c("h3", { staticClass: "mb-0" }, [_vm._t("title")], 2)
-        ]),
-        _vm._v(" "),
-        _vm._m(0)
-      ])
+      _c(
+        "div",
+        { staticClass: "row align-items-center" },
+        [
+          _c("div", { staticClass: "col" }, [
+            _c("h3", { staticClass: "mb-0" }, [_vm._t("title")], 2)
+          ]),
+          _vm._v(" "),
+          _vm._t("options")
+        ],
+        2
+      )
     ]),
     _vm._v(" "),
     _c(
@@ -3549,7 +4123,7 @@ var render = function() {
         _vm._v(" "),
         _c(
           "div",
-          { staticClass: "offset-5 offset-md-0 col-3 col-md-1 " },
+          { staticClass: "offset-5 offset-md-0 col-3 col-md-1" },
           [
             _c(
               "download-csv",
@@ -3576,7 +4150,7 @@ var render = function() {
         _vm._v(" "),
         _c(
           "div",
-          { staticClass: " col-3 col-md-1" },
+          { staticClass: "col-3 col-md-1" },
           [
             _c(
               "base-button",
@@ -3617,15 +4191,7 @@ var render = function() {
                     _c("th", { attrs: { scope: "row" } }, [
                       _vm._v(
                         "\n                    " +
-                          _vm._s(row.nombres) +
-                          "\n                "
-                      )
-                    ]),
-                    _vm._v(" "),
-                    _c("td", [
-                      _vm._v(
-                        "\n                    " +
-                          _vm._s(row.apellidos) +
+                          _vm._s(row.nombre) +
                           "\n                "
                       )
                     ]),
@@ -3634,6 +4200,14 @@ var render = function() {
                       _vm._v(
                         "\n                    " +
                           _vm._s(row.telefono) +
+                          "\n                "
+                      )
+                    ]),
+                    _vm._v(" "),
+                    _c("td", [
+                      _vm._v(
+                        "\n                    " +
+                          _vm._s(row.email) +
                           "\n                "
                       )
                     ]),
@@ -3672,9 +4246,9 @@ var render = function() {
             _c("template", { slot: "columns" }, [
               _c("th", [_vm._v("Nombres")]),
               _vm._v(" "),
-              _c("th", [_vm._v("Apellidos")]),
+              _c("th", [_vm._v("telefono")]),
               _vm._v(" "),
-              _c("th", [_vm._v("Telefono")]),
+              _c("th", [_vm._v("email")]),
               _vm._v(" "),
               _c("th", [_vm._v("Cedula")]),
               _vm._v(" "),
@@ -3688,20 +4262,7 @@ var render = function() {
     )
   ])
 }
-var staticRenderFns = [
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "col text-right" }, [
-      _c(
-        "a",
-        { staticClass: "btn btn-sm btn-primary", attrs: { href: "#!" } },
-        [_vm._v("Agregar "), _c("i", { staticClass: "fa fa-plus" })]
-      )
-    ])
-  }
-]
+var staticRenderFns = []
 render._withStripped = true
 
 

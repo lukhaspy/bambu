@@ -17,4 +17,5 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('app/users', 'User\ApiUserController');
+Route::get('app/users', 'App\Http\Controllers\Api\UserController@index');
+Route::post('app/users', 'App\Http\Controllers\Api\UserController@store');

@@ -24,6 +24,17 @@ class DatabaseSeeder extends Seeder
             'password' => '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi',
 
         ]);
+
+        User::create([
+            'nombre' => 'Genott',
+            'email' => 'Genot@genott.com',
+            'telefono' => '123123',
+            'cedula' => '333',
+            'rol' => '2',
+            'user' => '123',
+            'password' => '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi',
+
+        ]);
         // \App\Models\User::factory(10)->create();
     }
 }

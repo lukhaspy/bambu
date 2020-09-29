@@ -5,11 +5,7 @@
                 <div class="col">
                     <h3 class="mb-0"><slot name="title"></slot></h3>
                 </div>
-                <div class="col text-right">
-                    <a href="#!" class="btn btn-sm btn-primary"
-                        >Agregar <i class="fa fa-plus"></i
-                    ></a>
-                </div>
+                <slot name="options"> </slot>
             </div>
         </div>
         <div class="row m-3">
@@ -22,14 +18,14 @@
             >
             </base-input>
 
-            <div class="offset-5 offset-md-0 col-3 col-md-1 ">
+            <div class="offset-5 offset-md-0 col-3 col-md-1">
                 <download-csv :data="filteredTableData">
                     <base-button type="success" @click="exportarPdf()">
                         <i class="fas fa-table"></i>
                     </base-button>
                 </download-csv>
             </div>
-            <div class=" col-3 col-md-1">
+            <div class="col-3 col-md-1">
                 <base-button type="primary" @click="exportarPdf()">
                     <i class="fas fa-paste"></i>
                 </base-button>
@@ -40,21 +36,21 @@
             <base-table thead-classes="thead-light" :data="filteredTableData">
                 <template slot="columns">
                     <th>Nombres</th>
-                    <th>Apellidos</th>
-                    <th>Telefono</th>
+                    <th>telefono</th>
+                    <th>email</th>
                     <th>Cedula</th>
                     <th>Estado</th>
                 </template>
 
                 <template slot-scope="{ row }">
                     <th scope="row">
-                        {{ row.nombres }}
+                        {{ row.nombre }}
                     </th>
                     <td>
-                        {{ row.apellidos }}
+                        {{ row.telefono }}
                     </td>
                     <td>
-                        {{ row.telefono }}
+                        {{ row.email }}
                     </td>
                     <td>
                         {{ row.cedula }}
@@ -76,35 +72,40 @@
 import jsPDF from "jspdf";
 import autoTable from "jspdf-autotable";
 export default {
+    props: ["buscar"],
     data() {
         return {
             filtro: "",
-            tableData: [
-                {
-                    nombres: "Lucas Affonso",
-                    apellidos: "Hoffmann",
-                    telefono: "0983149332",
-                    cedula: "4896565",
-                    estado: "1"
-                },
-                {
-                    nombres: "Ariel",
-                    apellidos: "Genott",
-                    telefono: "0983111222",
-                    cedula: "54545454",
-                    estado: "0"
-                }
-            ]
+            tableData: []
         };
     },
-    async created(){
-        await this.callApi('get', 'app/users',)
+    watch: {
+        buscar(val) {
+            let me = this;
+            if (val == 1) {
+                me.getUsuarios();
+            }
+        }
+    },
+    async getUsuarios() {
+        const res = await this.callApi("get", "app/users");
+        if (res.status == 200) {
+            this.tableData = res.data.users.data;
+            console.log(this.tableData);
+        }
+    },
+    async mounted() {
+        const res = await this.callApi("get", "app/users");
+        if (res.status == 200) {
+            this.tableData = res.data.users.data;
+            console.log(this.tableData);
+        }
     },
     computed: {
         filteredTableData() {
             return this.tableData.filter(el => {
-                const nombres = el.nombres.toString().toLowerCase();
-                const apellidos = el.apellidos.toString().toLowerCase();
+                const nombres = el.nombre.toString().toLowerCase();
+                const apellidos = el.cedula.toString().toLowerCase();
 
                 return (
                     nombres.includes(this.filtro) ||

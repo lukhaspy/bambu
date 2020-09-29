@@ -5,6 +5,16 @@ import "./registerServiceWorker";
 import ArgonDashboard from "./plugins/argon-dashboard";
 import common from "./common";
 
+import Snotify, { SnotifyPosition } from "vue-snotify";
+
+const options = {
+    toast: {
+        position: SnotifyPosition.centerTop
+    }
+};
+
+Vue.use(Snotify, options);
+
 Vue.mixin(common);
 Vue.config.productionTip = false;
 

@@ -19,9 +19,10 @@ class CreateUsersTable extends Migration
             $table->string('email')->unique();
             $table->string('telefono');
             $table->string('cedula')->unique();
-            $table->unsignedInteger('rol');
+            $table->boolean('rol');
             $table->string('user');
             $table->string('password');
+            $table->boolean('estado')->default(1);
             $table->timestamps();
         });
     }
